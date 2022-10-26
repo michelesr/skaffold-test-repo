@@ -1,0 +1,16 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+build:
+  artifacts:
+    - image: localhost/nginx
+deploy:
+  kubeContext: minikube
+  helm:
+    releases:
+      - name: test
+        namespace: test
+        skipBuildDependencies: true
+        createNamespace: true
+        chartPath: ./chart
+        artifactOverrides:
+          image.repository: localhost/nginx
